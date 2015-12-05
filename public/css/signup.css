@@ -1,0 +1,20 @@
+.sbstyle{
+	font-family: 'Marcellus SC', serif;
+}
+
+.jumbotron{
+	text-align:center;
+	background-color:#FF9900;
+}
+
+#twit-icon{
+	color:#55acee;
+}
+
+#git-icon{
+	color:#333333;
+}
+
+#fb-icon{
+	color:#3b5998;
+}

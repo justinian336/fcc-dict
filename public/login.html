@@ -1,0 +1,68 @@
+<html>
+    <head>
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+        <link href='https://fonts.googleapis.com/css?family=Marcellus+SC' rel='stylesheet' type='text/css'>
+        <link href="/public/css/signup.css" rel="stylesheet" type="text/css"> 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    </head>
+    
+    <body>
+    	<nav class="navbar navbar-default navbar-fixed-top sbstyle">
+    		<div class="container-fluid">
+    			<div class="navbar-header">
+    				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#surveyon-nav" aria-expanded="false">
+    					<span class="icon-bar"></span>
+    					<span class="icon-bar"></span>
+    					<span class="icon-bar"></span>
+    				</button>
+    				<a class="navbar-brand" href="/">SB</a>
+    			</div>
+    			
+    			<div class="collapse navbar-collapse" id="surveyon-nav">
+    				<ul class="nav navbar-nav">
+    					<li><a href="/">Home</a></li>
+    				</ul>
+    				<ul class= "nav navbar-nav navbar-right">
+    					<li><a href="/signup">Sign Up</a></li>
+    					<li><a href="/login">Login</a></li>
+    				</ul>
+    			</div>
+    		</div>
+    	</nav>
+    	
+    	<div class="jumbotron sbstyle">
+    		<br></br>
+    		<h1>SurBay</h1>
+    		<h4>Create and start sharing your survey in seconds!</h4>
+    	</div>
+    	
+    	<div class="container sbstyle">
+    		<div class="row" style="text-align:center">
+    			<div class="col-xs-12"><h3>Login with</h3></div>
+    		</div>
+    		<div class="row" style="text-align:center">
+    			<a href="#"><i class="fa fa-twitter-square fa-4x" id="twit-icon"></i></a> <a href="/auth/github"><i class="fa fa-github-square fa-4x" id="git-icon"></i></a> <a href="#"><i class="fa fa-facebook-square fa-4x" id="fb-icon"></i></a>
+    		</div>
+    		
+    		<div class="row" style="text-align:center">
+    			<div class="col-xs-12"><h3>Or use your SurBay account</h3></div>
+    		</div>
+    		
+    		<form role="form">
+    			<div class="form-group">
+    				<label for="username">Username</label>
+    				<input type="text" class="form-control">
+    			</div>
+    			<div class="form-group">
+    				<label for="password">Password</label>
+    				<input type="password" class="form-control">
+    			</div>
+    			<button type="submit" class="btn btn-default">Login</button>
+    		</form>
+    	</div>
+    	
+    </body>
+</html>
