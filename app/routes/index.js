@@ -56,6 +56,10 @@ module.exports = function(app,passport){
     delete(isLoggedIn,function(req,res){
         surveyHandler.removeSurvey(req.params.id,req.params.surveyId);
     });
+    
+    app.route('/vote/:surveyId').post(isLoggedIn,function(req,res){
+        surveyHandler.vote(req,res);
+    });
 
     app.route('/signup').get(function(req,res){
         res.sendFile(process.cwd()+'/public/signup.html');

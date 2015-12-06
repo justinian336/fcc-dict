@@ -40,7 +40,7 @@
     		<br></br>
     		<h1>SurBay</h1>
     		<h4>Your survey in a snap of fingers</h4>
-    		<a class="btn btn-primary" ng-click="makeVisible(1); restartSurvey()" ng-hide="visible!=2">New Survey</a><a class="btn btn-primary" ng-click="restartSurvey()" ng-hide="visible!=1">Reset Survey</a><a class="btn btn-primary" ng-click="makeVisible(2); reqSurveys()">My Surveys</a>
+    		<a class="btn btn-primary" ng-click="makeVisible(1); restartSurvey()" ng-show="visible==2||visible==3">New Survey</a><a class="btn btn-primary" ng-click="restartSurvey()" ng-show="visible==1">Reset Survey</a><a class="btn btn-primary" ng-click="makeVisible(2); reqSurveys()">My Surveys</a>
     	</div>
         
         <div ng-hide="visible!=1">
@@ -65,19 +65,19 @@
             <h3>Your Surveys</h3>
             <div class="row" ng-repeat="survey in surveys">
                 <div class="col-xs-12">
-                    <div ng-click="voteScreen(survey.surveyId)">{{survey.name}}</div><div class="btn btn-danger" ng-click="removeSurvey(survey.surveyId)">Delete</div>
+                    <div ng-click="voteScreen(survey.surveyId); makeVisible(3)">{{survey.name}}</div><div class="btn btn-danger" ng-click="removeSurvey(survey.surveyId)">Delete</div>
                 </div>
             </div>
         </div>
         
-        <div class="text-center">
+        <div class="text-center" ng-hide="visible!=3">
             <h3>{{currentSurvey.name}}</h3>
             <form role="form-control">
               <div class="radio" ng-repeat="option in currentSurvey.options">
-                <label><input type="radio" name="optradio">{{option.name}}</label>
+                <label><input type="radio" name="optradio" ng-model="selectedOption.value" ng-value="$index">{{option.name}}</label>
               </div>
-              <div class="btn btn-default">Vote!</div>
-            </form>  
+              <div class="btn btn-default" ng-click="vote(selectedOption.value)">Vote!</div>
+            </form>
         </div>
     
     </body>

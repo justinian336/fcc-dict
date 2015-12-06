@@ -9,6 +9,7 @@
         $scope.userId=1;
         $scope.userNumSurveys=1;
         $scope.currentSurvey ={};
+        $scope.selectedOption={value:0};
         
         $http.get('/api/current-user').then(function(resp){
             $scope.userId = resp.data.userId;
@@ -80,6 +81,13 @@
                 if (err){throw err}
             }
             );
+        };
+        
+        $scope.vote = function(optionVal){
+            console.log($scope.currentSurvey.options);
+            $scope.currentSurvey.options[optionVal].count++;
+            console.log($scope.currentSurvey.options)
+            $http.post('/vote/'+$scope.currentSurvey.surveyId,{'survUpdate':$scope.currentSurvey,'optUpdate':$scope.currentSurvey.options[optionVal].name});
         };
         
     }]);
