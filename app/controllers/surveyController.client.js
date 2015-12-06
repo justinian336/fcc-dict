@@ -1,20 +1,24 @@
 'use strict';
 
 (function(db){
-    var app = angular.module("srvyApp",[]);
+    var app = angular.module("srvyApp",["googlechart"]);
     
-    app.controller("survey",["$scope", "$http",function($scope,$http){
+    app.controller("survey",["$scope", "$http", function($scope,$http){
         
         var opId;
         $scope.userId=1;
         $scope.userNumSurveys=1;
         $scope.currentSurvey ={};
         $scope.selectedOption={value:0};
+        $scope.votersList = [];
+        $scope.voted = false;
+        $scope.options = [];
+        $scope.chartObject = {};
+        $scope.chartObject.type="PieChart";
         
         $http.get('/api/current-user').then(function(resp){
             $scope.userId = resp.data.userId;
             $scope.userNumSurveys = resp.data.numSurveys;
-            console.log($scope.userId,$scope.userNumSurveys);
         });
         
         $scope.visible=1;
@@ -74,19 +78,43 @@
         };
         
         $scope.voteScreen = function(surveyId){
+            $scope.votersList=[];
+            $scope.options=[];
+            $scope.currentSurvey={};
+
             $http.get('/api/'+$scope.userId+'/'+surveyId).then(function(resp){
                 $scope.currentSurvey=resp.data[0];
-                console.log($scope.currentSurvey);
+                
+                $scope.votersList = $scope.currentSurvey.voted.reduce(function(previous,current){
+                    previous.push(current.userId);
+                    return previous;
+                },[]);
+                
+                $scope.options = $scope.currentSurvey.options.reduce(function(previous,current){
+                    previous.push({c:[{v:current.name},{v:current.count}]});
+                    return previous;
+                },[]);
+                
+                $scope.voted=$scope.votersList.indexOf($scope.userId)!=-1;
+                
+                $scope.chartObject.data={"cols":[
+                    {id:"o",label:"Option",type:"string"},
+                    {id:"v",label:"Votes",type:"number"}
+                ],"rows":$scope.options};
+                
+                $scope.chartObject.options = {
+                    'titlePosition':'none',
+                    'is3D':true
+                };
+                
             },function(err){
                 if (err){throw err}
-            }
-            );
+            });
+            
         };
         
         $scope.vote = function(optionVal){
-            console.log($scope.currentSurvey.options);
             $scope.currentSurvey.options[optionVal].count++;
-            console.log($scope.currentSurvey.options)
             $http.post('/vote/'+$scope.currentSurvey.surveyId,{'survUpdate':$scope.currentSurvey,'optUpdate':$scope.currentSurvey.options[optionVal].name});
         };
         
