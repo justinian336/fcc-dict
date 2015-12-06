@@ -36,6 +36,20 @@ function surveyHandler(){
             console.log('Deleted survey number '+srvyId);
         });
     };
+    
+    this.vote = function(req,res){
+        console.log(req.user.github.id);
+        console.log(req.params.surveyId);
+        console.log(req.body.survUpdate.options);
+        Survey.update({'userId':req.user.github.id,'surveyId':req.params.surveyId},{$set:{'options':req.body.survUpdate.options}},function(err,num){
+            if(err){throw err}
+            console.log(num);
+        });
+        Survey.update({'userId':req.user.github.id,'surveyId':req.params.surveyId},{$push:{'voted':{'userId':req.user.github.id,'votedOption':req.body.optUpdate}}},function(err,num){
+            if(err){throw err}
+            console.log(num);
+        });
+    };
 }
 
 module.exports=surveyHandler;
