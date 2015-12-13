@@ -1,7 +1,7 @@
 'use strict';
 
 (function(db){
-    var app = angular.module("srvyApp",["googlechart"]);
+    var app = angular.module("srvyApp",["googlechart",'ngRoute']);
     
     app.controller("survey",["$scope", "$http", function($scope,$http){
         

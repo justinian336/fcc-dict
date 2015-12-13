@@ -24,6 +24,7 @@ mongoose.connect('mongodb://localhost:27017/surbay');
 routes(app,passport);
 app.use('/public',express.static(process.cwd()+'/public'));
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+app.use('/bower_components',express.static(process.cwd()+'/bower_components'));
 
 app.listen(8080, function(){
   console.log('Listening!');

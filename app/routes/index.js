@@ -19,11 +19,11 @@ module.exports = function(app,passport){
         }
     }
     
-    app.route('/').get(function(req,res){
-        res.sendFile(process.cwd()+'/public/index.html');
+    app.route('/login').get(function(req,res){
+        res.sendFile(process.cwd()+'/public/login.html');
     });
     
-    app.route('/test').get(function(req,res){
+    app.route('/').get(isLoggedIn,function(req,res){
         res.sendFile(process.cwd()+'/public/usrhome.html');
     });
     
@@ -69,14 +69,6 @@ module.exports = function(app,passport){
         res.sendFile(process.cwd()+'/public/signup.html');
     });
     
-    app.route('/login').get(function(req,res){
-       res.sendFile(process.cwd()+'/public/login.html'); 
-    });
-    
-    app.route('/success').get(isLoggedIn,function(req,res){
-        res.sendFile(process.cwd()+'/public/usrhome.html');
-    });
-    
     app.route('/logout').get(function(req,res){
         req.logout();
         res.redirect('/login');
@@ -85,7 +77,7 @@ module.exports = function(app,passport){
     app.route('/auth/github').get(passport.authenticate('github'));
     
     app.route('/auth/github/callback').get(passport.authenticate('github',{
-        successRedirect:'/success',
+        successRedirect:'/',
         failureRedirect:'/login'
     }));
 };
