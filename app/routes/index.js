@@ -24,7 +24,11 @@ module.exports = function(app,passport){
     });
     
     app.route('/').get(isLoggedIn,function(req,res){
-        res.sendFile(process.cwd()+'/public/usrhome.html');
+        res.sendFile(process.cwd()+'/public/index.html');
+    });
+    
+    app.route('/poll').get(isLoggedIn,function(req,res){
+        res.sendFile(process.cwd()+'/public/pollView.html');
     });
     
     app.route('/api/surveys').
@@ -59,10 +63,6 @@ module.exports = function(app,passport){
     
     app.route('/vote/:surveyId').post(isLoggedIn,function(req,res){
         surveyHandler.vote(req,res);
-    });
-    
-    app.route('/poll/:userId/:surveyId').post(isLoggedIn,function(req,res){
-        res.sendFile(process.cwd()+'/public/poll.html');
     });
 
     app.route('/signup').get(function(req,res){

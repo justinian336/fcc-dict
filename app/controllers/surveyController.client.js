@@ -1,20 +1,30 @@
 'use strict';
 
 (function(db){
-    var app = angular.module("srvyApp",["googlechart",'ngRoute']);
+    var app = angular.module("ikou",["googlechart","ngRoute"]);
     
-    app.controller("survey",["$scope", "$http", function($scope,$http){
+    app.config(['$routeProvider',function($routeProvider){
+        $routeProvider.when('/:userId/:pollId',{
+            templateUrl: '/public/poll.html',
+            controller:'votingCtrl'
+        });
+    }]);
+    
+    
+    app.controller("poll",["$scope", "$http", function($scope,$http){
         
         var opId;
         $scope.userId=1;
         $scope.userNumSurveys=1;
         $scope.currentSurvey ={};
-        $scope.selectedOption={value:0};
         $scope.votersList = [];
-        $scope.voted = false;
         $scope.options = [];
-        $scope.chartObject = {};
-        $scope.chartObject.type="PieChart";
+        var messages=["Create a New Survey","Your Surveys"];
+        $scope.message=messages[0];
+        
+        $scope.changeMessage=function(i){
+           $scope.message=messages[i]; 
+        };
         
         $http.get('/api/current-user').then(function(resp){
             $scope.userId = resp.data.userId;
@@ -77,13 +87,40 @@
             $scope.reqSurveys();
         };
         
+    }]);
+    
+    app.controller("votingCtrl",['$scope','$http','$routeParams',function($scope,$http,$routeParams){
+        
+        $scope.votersList=[];
+        $scope.options=[];
+        $scope.currentSurvey={};
+        $scope.chartObject = {};
+        $scope.chartObject.type="PieChart";
+        $scope.voted = false;
+        $scope.selectedOption={value:0};
+        $scope.userId=1;
+        $scope.drawChart = function(){
+            $scope.chartObject.data={"cols":[
+                    {id:"o",label:"Option",type:"string"},
+                    {id:"v",label:"Votes",type:"number"}
+                ],"rows":$scope.options};
+                
+                $scope.chartObject.options = {
+                    'titlePosition':'none',
+                    'is3D':true
+                };
+        };
+        
+        $http.get('/api/current-user').then(function(resp){
+            $scope.userId = resp.data.userId;
+        });
+        
         $scope.voteScreen = function(surveyId){
-            $scope.votersList=[];
-            $scope.options=[];
-            $scope.currentSurvey={};
 
-            $http.get('/api/'+$scope.userId+'/'+surveyId).then(function(resp){
+            $http.get('/api/'+$routeParams.userId+'/'+$routeParams.pollId).then(function(resp){
                 $scope.currentSurvey=resp.data[0];
+                
+                console.log($scope.currentSurvey);
                 
                 $scope.votersList = $scope.currentSurvey.voted.reduce(function(previous,current){
                     previous.push(current.userId);
@@ -97,15 +134,7 @@
                 
                 $scope.voted=$scope.votersList.indexOf($scope.userId)!=-1;
                 
-                $scope.chartObject.data={"cols":[
-                    {id:"o",label:"Option",type:"string"},
-                    {id:"v",label:"Votes",type:"number"}
-                ],"rows":$scope.options};
-                
-                $scope.chartObject.options = {
-                    'titlePosition':'none',
-                    'is3D':true
-                };
+                $scope.drawChart();
                 
             },function(err){
                 if (err){throw err}
@@ -114,9 +143,13 @@
         };
         
         $scope.vote = function(optionVal){
+            console.log($scope.currentSurvey.options);
             $scope.currentSurvey.options[optionVal].count++;
             $http.post('/vote/'+$scope.currentSurvey.surveyId,{'survUpdate':$scope.currentSurvey,'optUpdate':$scope.currentSurvey.options[optionVal].name});
+            $scope.voteScreen();
         };
+        
+        $scope.voteScreen();
         
     }]);
     
