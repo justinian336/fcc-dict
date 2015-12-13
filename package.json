@@ -5,6 +5,7 @@
   "main": "server.js",
   "author": "Mostafa Eweda <mo.eweda@gmail.com>",
   "dependencies": {
+    "angular-route": "^1.4.8",
     "async": "~0.2.8",
     "body-parser": "^1.14.1",
     "dotenv": "^1.2.0",
