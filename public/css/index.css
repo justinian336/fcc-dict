@@ -2,11 +2,15 @@
 	font-family: 'Marcellus SC', serif;
 }
 
+
+body {
+	padding-top: 50px;
+}
+
 .jumbotron{
 	text-align:center;
 	background-color:#d7d3c8;
 	font-family: 'Marcellus SC', serif;
-	box-shadow: 10px 10px 5px #888888;
 	color:#4d4e53;
 }
 
