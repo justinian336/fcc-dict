@@ -69,6 +69,10 @@ module.exports = function(app,passport){
         res.sendFile(process.cwd()+'/public/signup.html');
     });
     
+    app.route('/explore').get(function(req,res){
+        res.sendFile(process.cwd()+'/public/explore.html');
+    });
+    
     app.route('/logout').get(function(req,res){
         req.logout();
         res.redirect('/login');

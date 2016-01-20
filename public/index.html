@@ -28,6 +28,7 @@
         		
         		<div class="collapse navbar-collapse" id="surveyon-nav">
         			<ul class= "nav navbar-nav navbar-right">
+        			    <li><a href="/explore">Explore!</a></li>
         				<li><a href="/logout">Logout</a></li>
         			</ul>
         		</div>
@@ -36,8 +37,8 @@
         
         <div class="jumbotron sbstyle">
         	<h1>Ik<i class="fa fa-pie-chart fa-1x"></i>u</h1>
-        	<div class="btn btn-danger" ng-click="makeVisible(1); restartSurvey(); changeMessage(0)" ng-show="visible==2||visible==3">New Survey</div><div class="btn btn-danger" ng-click="restartSurvey()" ng-show="visible==1">Reset Survey</div><div class="btn btn-danger" ng-click="makeVisible(2); reqSurveys(); changeMessage(1)" ng-show="visible==1">My Surveys</div>
         	<h3 class="text-center">{{message}}</h3>
+        	<div class="btn btn-danger" ng-click="makeVisible(1); restartSurvey(); changeMessage(0)" ng-show="visible==2||visible==3">New Survey</div><div class="btn btn-danger" ng-click="restartSurvey()" ng-show="visible==1">Reset Survey</div><div class="btn btn-danger" ng-click="makeVisible(2); reqSurveys(); changeMessage(1)" ng-show="visible==1">My Surveys</div>
         </div>
         
         <div ng-hide="visible!=1" class="container-fluid">
