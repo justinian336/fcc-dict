@@ -79,8 +79,29 @@ module.exports = function(app,passport){
     });
     
     app.route('/auth/github').get(passport.authenticate('github'));
-    
     app.route('/auth/github/callback').get(passport.authenticate('github',{
+        successRedirect:'/',
+        failureRedirect:'/login'
+    }));
+    
+    app.route('/auth/facebook').get(passport.authenticate('facebook',{scope:'email'}));
+    app.route('/auth/facebook/callback').get(passport.authenticate('facebook',{
+        successRedirect:'/',
+        failureRedirect:'/login'
+    }));
+    
+    app.route('/auth/twitter').get(passport.authenticate('twitter'));
+    app.route('/auth/twitter/callback').get(passport.authenticate('twitter',{
+        successRedirect:'/',
+        failureRedirect:'/login'
+    }));
+    
+    app.route('/auth/local-signup').post(passport.authenticate('local-signup',{
+        successRedirect:'/',
+        failureRedirect:'/signup'
+    }));
+    
+    app.route('auth/local-login').post(passport.authenticate('local-login',{
         successRedirect:'/',
         failureRedirect:'/login'
     }));
