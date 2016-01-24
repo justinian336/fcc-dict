@@ -5,9 +5,12 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 var routes = require('./app/routes/index.js');
+var bodyParser = require('body-parser');
 require('dotenv').load();
 require('./app/config/passport')(passport);
 var app = express();
+
+app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(session({
   secret:'secretSurBay',
