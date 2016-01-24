@@ -28,24 +28,23 @@
         		
         		<div class="collapse navbar-collapse" id="surveyon-nav">
         			<ul class= "nav navbar-nav navbar-right">
-        			    <li><a href="/">Home</a></li>
-        				<li><a href="/signup">Sign Up</a></li>
-        				<li><a href="/login">Login</a></li>
+        			    <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+        				<li><a href="/signup"><i class="fa fa-sign-out"></i> Logout</a></li>
         			</ul>
         		</div>
         	</div>
         </nav>
     	
     	<div class="jumbotron sbstyle">
-    		<h1>Ik<i class="fa fa-pie-chart fa-1x"></i>u</h1>
-    		<h4>What's other people thinking?</h4>
+    		<h1 class="logo-style">Ik<i class="fa fa-pie-chart fa-1x"></i>u</h1>
+    		<h4 class="messages-style">What are WE thinking?</h4>
     	</div>
     	
     	<div class="container-fluid">
     	    <div class="row" ng-repeat="poll in polls">
     	        <div class="col-xs-2"></div>
     	        <div class="col-xs-8" >
-    	            <a class="btn btn-default ctrlButton" ng-href="/poll/#/{{poll.userId}}/{{poll.surveyId}}">{{poll.name}}</a>
+    	            <a class="btn btn-default ctrlButton" ng-href="/poll/#/{{poll.username}}/{{poll.surveyId}}">{{poll.name}}</a>
     	        </div>
     	        <div class="col-xs-2"></div>
     	    </div>

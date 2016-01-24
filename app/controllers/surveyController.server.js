@@ -15,7 +15,11 @@ function surveyHandler(){
     this.getUsers=function(req,res){
         Users.find({},{_id:false,__v:false}).exec(function(err,result){
             if(err){throw err}
-            res.json(result);
+            var users=[];
+            for(var i=0;i<result.length;i++){
+                users.push(result[i].local.username);
+            }
+            res.json(users);
         });
     };
     
@@ -25,27 +29,26 @@ function surveyHandler(){
         newSurvey.save(function(err,obj){
             if(err){throw err}
         });
-        Users.update({'github.id':(req.user.github.id).toString()},{$inc:{numSurveys:1}},function(data){
-            console.log(req.user.github.id);
+        Users.update({'local.username':(req.user.local.username).toString()},{$inc:{numSurveys:1}},function(data){
+            console.log(req.user.local.username);
         });
     };
     
-    this.removeSurvey = function(usrId,srvyId){
-        Survey.remove({userId:usrId,surveyId:srvyId},function(err){
+    this.removeSurvey = function(usrnm,srvyId){
+        Survey.remove({usernamed:usrnm,surveyId:srvyId},function(err){
             if(err){throw err}
             console.log('Deleted survey number '+srvyId);
         });
     };
     
     this.vote = function(req,res){
-        console.log(req.user.github.id);
-        console.log(req.params.surveyId);
-        console.log(req.body.survUpdate.options);
-        Survey.update({'userId':req.user.github.id,'surveyId':req.params.surveyId},{$set:{'options':req.body.survUpdate.options}},function(err,num){
+        console.log(req.user.local.username);
+        
+        Survey.update({'username':req.params.ownerid,'surveyId':req.params.surveyId},{$set:{'options':req.body.survUpdate.options}},function(err,num){
             if(err){throw err}
             console.log(num);
         });
-        Survey.update({'userId':req.user.github.id,'surveyId':req.params.surveyId},{$push:{'voted':{'userId':req.user.github.id,'votedOption':req.body.optUpdate}}},function(err,num){
+        Survey.update({'username':req.params.ownerid,'surveyId':req.params.surveyId},{$push:{'voted':{'username':req.user.local.username,'votedOption':req.body.optUpdate}}},function(err,num){
             if(err){throw err}
             console.log(num);
         });

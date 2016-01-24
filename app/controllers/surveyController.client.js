@@ -4,7 +4,7 @@
     var app = angular.module("ikou",["googlechart","ngRoute"]);
     
     app.config(['$routeProvider',function($routeProvider){
-        $routeProvider.when('/:userId/:pollId',{
+        $routeProvider.when('/:username/:pollId',{
             templateUrl: '/public/poll.html',
             controller:'votingCtrl'
         });
@@ -14,7 +14,7 @@
     app.controller("poll",["$scope", "$http", function($scope,$http){
         
         var opId;
-        $scope.userId=1;
+        $scope.username='';
         $scope.userNumSurveys=1;
         $scope.currentSurvey ={};
         $scope.votersList = [];
@@ -27,7 +27,7 @@
         };
         
         $http.get('/api/current-user').then(function(resp){
-            $scope.userId = resp.data.userId;
+            $scope.username = resp.data.username;
             $scope.userNumSurveys = resp.data.numSurveys;
         });
         
@@ -62,7 +62,7 @@
         $scope.addSurvey = function(){
             var newSurvey = {
                 surveyId:$scope.userNumSurveys+1,
-                userId:$scope.userId,
+                username:$scope.username,
                 name:$scope.srvyName,
                 options:$scope.options,
                 voted:[]
@@ -75,7 +75,7 @@
         };
         
         $scope.reqSurveys = function(){
-            $http.get('/api/'+$scope.userId+'/surveys').then(function(resp){
+            $http.get('/api/'+$scope.username+'/surveys').then(function(resp){
                 $scope.surveys = resp.data;
             },function(err){
                 if (err){throw err}
@@ -83,7 +83,7 @@
         };
         
         $scope.removeSurvey = function(surveyId){
-            $http.delete('/api/'+$scope.userId+'/'+surveyId);
+            $http.delete('/api/'+$scope.username+'/'+surveyId);
             $scope.reqSurveys();
         };
         
@@ -98,7 +98,7 @@
         $scope.chartObject.type="PieChart";
         $scope.voted = false;
         $scope.selectedOption={value:0};
-        $scope.userId=1;
+        $scope.username='';
         $scope.drawChart = function(){
             $scope.chartObject.data={"cols":[
                     {id:"o",label:"Option",type:"string"},
@@ -112,18 +112,17 @@
         };
         
         $http.get('/api/current-user').then(function(resp){
-            $scope.userId = resp.data.userId;
+            $scope.username = resp.data.username;
+            console.log($scope.username);
         });
         
         $scope.voteScreen = function(surveyId){
 
-            $http.get('/api/'+$routeParams.userId+'/'+$routeParams.pollId).then(function(resp){
+            $http.get('/api/'+$routeParams.username+'/'+$routeParams.pollId).then(function(resp){
                 $scope.currentSurvey=resp.data[0];
                 
-                console.log($scope.currentSurvey);
-                
                 $scope.votersList = $scope.currentSurvey.voted.reduce(function(previous,current){
-                    previous.push(current.userId);
+                    previous.push(current.username);
                     return previous;
                 },[]);
                 
@@ -132,7 +131,7 @@
                     return previous;
                 },[]);
                 
-                $scope.voted=$scope.votersList.indexOf($scope.userId)!=-1;
+                $scope.voted=$scope.votersList.indexOf($scope.username)!=-1;
                 
                 $scope.drawChart();
                 
@@ -143,10 +142,10 @@
         };
         
         $scope.vote = function(optionVal){
-            console.log($scope.currentSurvey.options);
             $scope.currentSurvey.options[optionVal].count++;
-            $http.post('/vote/'+$scope.currentSurvey.surveyId,{'survUpdate':$scope.currentSurvey,'optUpdate':$scope.currentSurvey.options[optionVal].name});
-            $scope.voteScreen();
+            console.log($scope.currentSurvey);
+            $http.post('/vote/'+$scope.currentSurvey.username+'/'+$scope.currentSurvey.surveyId,{'survUpdate':$scope.currentSurvey,'optUpdate':$scope.currentSurvey.options[optionVal].name}).
+            then($scope.voteScreen());
         };
         
         $scope.voteScreen();

@@ -25,7 +25,9 @@
         		
         		<div class="collapse navbar-collapse" id="surveyon-nav">
         			<ul class= "nav navbar-nav navbar-right">
-        				<li><a href="/signup"><i class="fa fa-sign-in"></i> Sign Up</a></li>
+        			    <li><a href="/"><i class="fa fa-home"></i> Home</a></li>
+        			    <li><a href="/explore"><i class="fa fa-users"></i> Explore!</a></li>
+        				<li><a href="/signup"><i class="fa fa-sign-out"></i> Logout</a></li>
         			</ul>
         		</div>
         	</div>
@@ -36,25 +38,13 @@
     		<h4>Create and start sharing your poll in seconds!</h4>
     	</div>
     	
-    	<div class="row sbstyle text-center">
-    	    <div class="row text-center">
-    		    <div class="col-xs-12"><h3>Access your account here:</h3></div>
-    	    </div>
-    	    <div class="col-xs-3"></div>
-        	<div class="col-xs-6">
-        		<form role="form" action="/auth/local-login" method="post">
-        			<div class="form-group">
-        				<label for="username">Username</label>
-        				<input type="text" class="form-control display-block" name="username">
-        			</div>
-        			<div class="form-group">
-        				<label for="password">Password</label>
-        				<input type="password" class="form-control" name="password">
-        			</div>
-        			<button type="submit" class="btn btn-default">Login</button>
-        		</form>
-        	</div>
-        	<div class="col-xs-3"></div>
+    	<div class="container sbstyle">
+    		<div class="row" style="text-align:center">
+    			<div class="col-xs-12"><h3>Link Your Accounts!</h3></div>
+    		</div>
+    		<div class="row" style="text-align:center">
+    			<a href="/auth/twitter"><i class="fa fa-twitter-square fa-4x" id="twit-icon"></i></a> <a href="/auth/github"><i class="fa fa-github-square fa-4x" id="git-icon"></i></a> <a href="/auth/facebook"><i class="fa fa-facebook-square fa-4x" id="fb-icon"></i></a>
+    		</div>
     	</div>
     	
     </body>

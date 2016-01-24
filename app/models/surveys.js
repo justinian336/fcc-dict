@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var Survey = new Schema({
     surveyId:Number,
-    userId:Number,
+    username:String,
     name:String,
     options:[
         {name:String,
