@@ -133,19 +133,19 @@ module.exports = function(passport){
     ));
     
     passport.use('local-signup',new LocalStrategy({
-        usernameField:'email',
+        usernameField:'username',
         passwordField:'password',
         passReqToCallback:true
-    },function(req,email,password,done){
+    },function(req,username,password,done){
         
         process.nextTick(function(){
-           User.findOne({'local.email':email},function(err,user){
+           User.findOne({'local.username':username},function(err,user){
             if(err){return done(err);}
             if(user){return done(null,false);}
             else {
                     var newUser = new User();
 
-                    newUser.local.email=email;
+                    newUser.local.username=username;
                     newUser.local.password=newUser.generateHash(password);
                     newUser.numSurveys=0;
                     
@@ -161,13 +161,13 @@ module.exports = function(passport){
     }));
     
     passport.use('local-login',new LocalStrategy({
-        usernameField:'email',
+        usernameField:'username',
         passwordField:'password',
         passReqToCallback:true
-    },function(req,email,password,done){
+    },function(req,username,password,done){
         
         process.nextTick(function(){
-            User.findOne({'local.email':email},function(err,user){
+            User.findOne({'local.username':username},function(err,user){
                 if(err){return done(err);}
                 if(!user){return done(null,false);}
                 if(!user.validPassword(password)){return done(null,false);}

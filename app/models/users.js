@@ -24,7 +24,7 @@ var User = new Schema({
       displayName:String
     },
     local:{
-        email:String,
+        username:String,
         password:String
     },
     numSurveys:Number

@@ -40,11 +40,12 @@ module.exports = function(app,passport){
     app.route('/api/users').get(isLoggedIn,surveyHandler.getUsers);
     
     app.route('/api/current-user').get(isLoggedIn,function(req,res){
-        res.json({userId:req.user.github.id,username:req.user.github.username,numSurveys:req.user.numSurveys});
+        console.log(req.user);
+        res.json({username:req.user.local.username,numSurveys:req.user.numSurveys});
     });
 
     app.route('/api/:id/surveys').get(isLoggedIn,function(req,res){
-        Survey.find({userId:req.user.github.id}).exec(function(err,response){
+        Survey.find({username:req.user.local.username}).exec(function(err,response){
            if(err){throw err;}
            res.json(response);
         });
@@ -52,7 +53,7 @@ module.exports = function(app,passport){
     
     app.route('/api/:id/:surveyId').
     get(isLoggedIn,function(req,res){
-        Survey.find({userId:req.params.id,surveyId:req.params.surveyId}).exec(function(err,response){
+        Survey.find({username:req.params.id,surveyId:req.params.surveyId}).exec(function(err,response){
            if(err){throw err;}
            res.json(response);
         });
@@ -61,7 +62,7 @@ module.exports = function(app,passport){
         surveyHandler.removeSurvey(req.params.id,req.params.surveyId);
     });
     
-    app.route('/vote/:surveyId').post(isLoggedIn,function(req,res){
+    app.route('/vote/:ownerid/:surveyId').post(isLoggedIn,function(req,res){
         surveyHandler.vote(req,res);
     });
 
@@ -72,6 +73,11 @@ module.exports = function(app,passport){
     app.route('/explore').get(function(req,res){
         res.sendFile(process.cwd()+'/public/explore.html');
     });
+    
+    app.route('/account').get(isLoggedIn,function(req,res){
+        res.sendFile(process.cwd()+'/public/account.html');
+    });
+    
     
     app.route('/logout').get(function(req,res){
         req.logout();
@@ -101,7 +107,7 @@ module.exports = function(app,passport){
         failureRedirect:'/signup'
     }));
     
-    app.route('auth/local-login').post(passport.authenticate('local-login',{
+    app.route('/auth/local-login').post(passport.authenticate('local-login',{
         successRedirect:'/',
         failureRedirect:'/login'
     }));
