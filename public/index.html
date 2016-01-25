@@ -62,7 +62,7 @@
         <div ng-hide="visible!=2" class="text-center">
             <div class="row" ng-repeat="survey in surveys">
                 <div class="col-xs-3"></div>
-                    <div class="col-xs-3"><a href="poll/#/{{username}}/{{survey.surveyId}}" class="btn btn-default ctrlButton pull-right">{{survey.name}}</a></div><div class="col-xs-3"><div class="btn btn-default pull-left" style="border:none" ng-click="removeSurvey(survey.surveyId)"><i class="fa fa-trash fa-2x"></i></div></div>
+                    <div class="col-xs-3"><a href="poll/#/{{username}}/{{survey.surveyId}}" class="btn btn-default ctrlButton pull-right">{{survey.name}}</a></div><div class="col-xs-3"><div class="btn btn-default pull-left ctrlButton" style="border:none" ng-click="removeSurvey(survey.surveyId)"><i class="fa fa-trash fa-2x"></i></div></div>
                 <div class="col-xs-3"></div>
             </div>
         </div>

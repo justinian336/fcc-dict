@@ -42,3 +42,12 @@ body {
 	color:#ffbf00;
 	text-shadow: 2px 2px 8px #000000;
 }
+
+.a-button{
+	color:#ffbf00;
+}
+
+.a-button:hover{
+	color:#ffbf00;
+	text-shadow: 2px 2px 8px #000000;
+}
