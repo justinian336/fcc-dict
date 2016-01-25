@@ -2,11 +2,11 @@
     <body>
         
         <div class="jumbotron sbstyle">
-        	<h1>{{currentSurvey.name}}</h1>
-        	<a class="btn btn-danger" href="/">My Surveys</a>
+        	<h1 class="logo-style">{{currentSurvey.name}}</h1>
+        	<a class="btn a-button" href="/">My Surveys</a>
         </div>
         
-        <div class="text-center" ng-hide="voted==true">
+        <div class="text-center" ng-hide="voted">
             <form role="form-control">
               <div class="radio" ng-repeat="option in currentSurvey.options">
                 <label><input type="radio" name="optradio" ng-model="selectedOption.value" ng-value="$index">{{option.name}}</label>

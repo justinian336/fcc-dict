@@ -96,7 +96,7 @@
         $scope.currentSurvey={};
         $scope.chartObject = {};
         $scope.chartObject.type="PieChart";
-        $scope.voted = false;
+        $scope.voted = true;
         $scope.selectedOption={value:0};
         $scope.username='';
         $scope.drawChart = function(){
