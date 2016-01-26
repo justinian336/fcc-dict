@@ -44,17 +44,19 @@
         <div ng-hide="visible!=1" class="container-fluid">
             <form role="form">
                 <div class="row text-center">
-                    <div class="col-xs-4"><a ng-click="addOption()" class="btn btn-default ctrlButton"><i class="fa fa-plus fa-2x"></i></a></div>
-                    <div class="col-xs-4"><a ng-click="addSurvey(); reqSurveys(); makeVisible(2)" class="btn btn-default ctrlButton"><i class="fa fa-paper-plane fa-2x"></i></a></div>
-                    <div class="col-xs-4"><a ng-click="deleteOption()" class="btn btn-default ctrlButton"><i class="fa fa-trash fa-2x"></i></a></div>
+                    <div data-toggle="tooltip" title="Add a new option" class="col-xs-4"><a ng-click="addOption()" class="btn btn-default ctrlButton"><i class="fa fa-plus fa-2x"></i></a></div>
+                    <div data-toggle="tooltip" title="Send your poll" class="col-xs-4"><a ng-click="addSurvey(); reqSurveys(); makeVisible(2)" class="btn btn-default ctrlButton"><i class="fa fa-paper-plane fa-2x"></i></a></div>
+                    <div data-toggle="tooltip" title="Delte the last option" class="col-xs-4"><a ng-click="deleteOption()" class="btn btn-default ctrlButton"><i class="fa fa-trash fa-2x"></i></a></div>
                 </div>
         			<div class="form-group">
-          				<label for="username">Name your poll</label>
+          				<label for="name">Name your poll</label>
         				<input type="text" class="form-control" ng-model="srvyName">
         			</div>
                     <div class="form-group">
-          				<label for="username">Options</label>
-        			    <input type="text" class="form-control" data-ng-repeat="option in options" ng-model="option.name">
+          				<label for="option">Options</label>
+        			</div>
+        			<div class="form-group" data-ng-repeat="option in options" >
+        			    <input type="text" class="form-control" ng-model="option.name">
         			</div>
             </form>
         </div>
