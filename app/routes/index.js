@@ -31,6 +31,10 @@ module.exports = function(app,passport){
         res.sendFile(process.cwd()+'/public/pollView.html');
     });
     
+    app.route('/poll/404').get(isLoggedIn,function(req,res){
+       res.sendFile(process.cwd()+'/public/404.html'); 
+    });
+    
     app.route('/api/surveys').
     get(isLoggedIn,surveyHandler.getSurveys).
     post(isLoggedIn,function(req,res){

@@ -113,13 +113,14 @@
         
         $http.get('/api/current-user').then(function(resp){
             $scope.username = resp.data.username;
-            console.log($scope.username);
         });
         
         $scope.voteScreen = function(surveyId){
 
             $http.get('/api/'+$routeParams.username+'/'+$routeParams.pollId).then(function(resp){
+                
                 $scope.currentSurvey=resp.data[0];
+                console.log(resp.data[0]);
                 
                 $scope.votersList = $scope.currentSurvey.voted.reduce(function(previous,current){
                     previous.push(current.username);
