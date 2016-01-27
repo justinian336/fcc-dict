@@ -1,22 +1,10 @@
 
-     ,-----.,--.                  ,--. ,---.   ,--.,------.  ,------.
-    '  .--./|  | ,---. ,--.,--. ,-|  || o   \  |  ||  .-.  \ |  .---'
-    |  |    |  || .-. ||  ||  |' .-. |`..'  |  |  ||  |  \  :|  `--, 
-    '  '--'\|  |' '-' ''  ''  '\ `-' | .'  /   |  ||  '--'  /|  `---.
-     `-----'`--' `---'  `----'  `---'  `--'    `--'`-------' `------'
-    ----------------------------------------------------------------- 
+#Welcome to Ikou!
 
+The name Ikou is the contraction of the Japanese word iken koukan ([意見交換](http://jisho.org/search/%E6%84%8F%E8%A6%8B%E4%BA%A4%E6%8F%9B)), which means Exchange of Ideas.
 
-Welcome to your Node.js project on Cloud9 IDE!
+Open a fresh new account, create your poll and see how others vote on it. It's that simple!
 
-This chat example showcases how to use `socket.io` with a static `express` server.
+This is a work in progress. Future changes will improve the shareability of the polls and opinions of the users.
 
-## Running the server
-
-1) Open `server.js` and start the app by clicking on the "Run" button in the top menu.
-
-2) Alternatively you can launch the app from the Terminal:
-
-    $ node server.js
-
-Once the server is running, open the project in the shape of 'https://projectname-username.c9.io/'. As you enter your name, watch the Users list (on the left) update. Once you press Enter or Send, the message is shared with all connected clients.
+Feel free to fork and clone it. Run `mongod` and then `server.js` to get it working.
