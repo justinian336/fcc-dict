@@ -19,8 +19,45 @@
         $scope.currentSurvey ={};
         $scope.votersList = [];
         $scope.options = [];
-        var messages=["Create a New Survey","Your Surveys"];
+        var messages=["Create a New Dictionary Entry","Your Surveys"];
         $scope.message=messages[0];
+        $scope.languages=[
+    {name:"Español",abbrev:"es"},
+    {name:"Português",abbrev:"pt"},
+    {name:"中文",abbrev:"zh"},
+    {name:"Français",abbrev:"fr"},
+    {name:"Italiano",abbrev:"it"},
+    {name:"Deutsch",abbrev:"de"},
+    {name:"日本語",abbrev:"ja"},
+    {name:"한국어",abbrev:"ko"},
+    {name:"Pусский",abbrev:"ru"},
+    {name:"العربية",abbrev:"ar"},
+    {name:"Svenska",abbrev:"sv"},
+    {name:"Nederlands",abbrev:"nl"},
+    {name:"বাংলা",abbrev:"bn"},
+    {name:"TiếngViệt",abbrev:"vi"},
+    {name:"Polski",abbrev:"pl"},
+    {name:"Yкраїнська",abbrev:"uk"},
+    {name:"Català",abbrev:"ca"},
+    {name:"فارسی",abbrev:"fa"},
+    {name:"Norskbokmål",abbrev:"nb"},
+    {name:"Suomi",abbrev:"fi"},
+    {name:"BahasaIndonesia",abbrev:"id"},
+    {name:"Română",abbrev:"ro"},
+    {name:"čeština",abbrev:"cs"},
+    {name:"Magyar",abbrev:"hu"},
+    {name:"Cрпски/srpski",abbrev:"sr"},
+    {name:"BahasaMelayu",abbrev:"ms"},
+    {name:"Türkçe",abbrev:"tr"},
+    {name:"Esperanto",abbrev:"eo"},
+    {name:"қазақша",abbrev:"kk"},
+    {name:"Euskara",abbrev:"eu"},
+    {name:"Dansk",abbrev:"da"},
+    {name:"Slovenčina",abbrev:"sk"},
+    {name:"български",abbrev:"bg"},
+    {name:"ខ្មែរ, ខេមរភាសា, ភាសាខ្មែរ",abbrev:"km"}
+    ];
+        $scope.currentLang;
         
         $scope.changeMessage=function(i){
            $scope.message=messages[i]; 
@@ -39,8 +76,8 @@
         
         var initialize = function(){
             opId = 2;
-            $scope.srvyName = "New Poll";
-            $scope.options = [{name:'Option 1',count:0},{name:'Option 2',count:0}];
+            $scope.srvyName = "";
+            $scope.options = [{name:'',count:0}];
         };
         
         initialize();
@@ -52,7 +89,7 @@
         };
         
         $scope.deleteOption = function(){
-            if ($scope.options.length==2){}
+            if ($scope.options.length==1){}
             else{
                 $scope.options.splice($scope.options.length-1,1);
                 opId--;
@@ -60,14 +97,21 @@
         };
         
         $scope.addSurvey = function(){
-            var newSurvey = {
-                surveyId:$scope.userNumSurveys+1,
-                username:$scope.username,
-                name:$scope.srvyName,
-                options:$scope.options,
-                voted:[]
-            };
-            $http.post('/api/surveys',newSurvey);
+            if($scope.srvyName==""|$scope.currentLang=="none"){
+                alert("Please fill all the fields");
+            }
+            else{
+                var newSurvey = {
+                    surveyId:$scope.userNumSurveys+1,
+                    username:$scope.username,
+                    name:$scope.srvyName,
+                    language:$scope.currentLang,
+                    options:$scope.options,
+                    voted:[]
+                };
+                $http.post('/api/surveys',newSurvey);
+                $scope.makeVisible(2);
+            }
         };
         
         $scope.restartSurvey = function(){

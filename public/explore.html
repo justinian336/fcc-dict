@@ -11,6 +11,7 @@
         <link href="/public/css/index.css" rel="stylesheet" type="text/css">
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.min.js"></script>
         <script type="text/javascript" src="/controllers/explore.js"></script>
     </head>
     
@@ -36,8 +37,17 @@
         </nav>
     	
     	<div class="jumbotron sbstyle">
-    		<h1 class="logo-style">Ik<i class="fa fa-pie-chart fa-1x"></i>u</h1>
-    		<h4 class="messages-style">What are WE thinking?</h4>
+    		<h1 class="text-center messages-style">FCC Dictionary</h1>
+    		<div class="row">
+		        <div class="col-xs-12">
+		            <div class="input-group">
+		                <span class="input-group-btn"><button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{currentLang.name}}<span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                              <li><a href="#" ng-repeat="lang in languages" ng-click="setLang(lang)">{{lang.name}}</a></li>
+                            </ul></span><input type="text" ng-model="asyncSelected" placeholder="Choose a language and search in English" uib-typeahead="term for terms in getDictio($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control">
+		            </div>
+	            </div>
+    		</div>
     	</div>
     	
     	<div class="container-fluid">

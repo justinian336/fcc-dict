@@ -7,6 +7,7 @@ var Survey = new Schema({
     surveyId:Number,
     username:String,
     name:String,
+    language:String,
     options:[
         {name:String,
         count:Number

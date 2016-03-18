@@ -45,11 +45,11 @@ module.exports = function(app,passport){
     
     app.route('/api/current-user').get(isLoggedIn,function(req,res){
         console.log(req.user);
-        res.json({username:req.user.local.username,numSurveys:req.user.numSurveys});
+        res.json({username:req.user.github.username,numSurveys:req.user.numSurveys});
     });
 
     app.route('/api/:id/surveys').get(isLoggedIn,function(req,res){
-        Survey.find({username:req.user.local.username}).exec(function(err,response){
+        Survey.find({username:req.user.github.username}).exec(function(err,response){
            if(err){throw err;}
            res.json(response);
         });
