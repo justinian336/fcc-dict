@@ -17,7 +17,7 @@ function surveyHandler(){
             if(err){throw err}
             var users=[];
             for(var i=0;i<result.length;i++){
-                users.push(result[i].local.username);
+                users.push(result[i].github.username);
             }
             res.json(users);
         });
@@ -29,8 +29,8 @@ function surveyHandler(){
         newSurvey.save(function(err,obj){
             if(err){throw err}
         });
-        Users.update({'local.username':(req.user.local.username).toString()},{$inc:{numSurveys:1}},function(data){
-            console.log(req.user.local.username);
+        Users.update({'github.username':(req.user.github.username).toString()},{$inc:{numSurveys:1}},function(data){
+            console.log(req.user.github.username);
         });
     };
     
@@ -42,13 +42,13 @@ function surveyHandler(){
     };
     
     this.vote = function(req,res){
-        console.log(req.user.local.username);
+        console.log(req.user.github.username);
         
         Survey.update({'username':req.params.ownerid,'surveyId':req.params.surveyId},{$set:{'options':req.body.survUpdate.options}},function(err,num){
             if(err){throw err}
             console.log(num);
         });
-        Survey.update({'username':req.params.ownerid,'surveyId':req.params.surveyId},{$push:{'voted':{'username':req.user.local.username,'votedOption':req.body.optUpdate}}},function(err,num){
+        Survey.update({'username':req.params.ownerid,'surveyId':req.params.surveyId},{$push:{'voted':{'username':req.user.github.username,'votedOption':req.body.optUpdate}}},function(err,num){
             if(err){throw err}
             console.log(num);
         });

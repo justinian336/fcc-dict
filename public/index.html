@@ -28,35 +28,51 @@
         		
         		<div class="collapse navbar-collapse" id="surveyon-nav">
         			<ul class= "nav navbar-nav navbar-right">
-        			    <li><a href="/explore"><i class="fa fa-users"></i> Explore!</a></li>
-        				<li><a href="/signup"><i class="fa fa-sign-out"></i> Logout</a></li>
+        			    <li><a href="/explore"><i class="fa fa-language"></i> Dictionary</a></li>
+        				<li><a href="/login"><i class="fa fa-sign-out"></i> Logout</a></li>
         			</ul>
         		</div>
         	</div>
         </nav>
         
         <div class="jumbotron sbstyle">
-        	<h1 class="logo-style">Ik<i class="fa fa-pie-chart fa-1x"></i>u</h1>
+        	<h1 class="text-center messages-style">FCC Dictionary</h1>
         	<h3 class="text-center messages-style">{{message}}</h3>
-        	<div class="btn main-button" ng-click="makeVisible(1); restartSurvey(); changeMessage(0)" ng-show="visible==2||visible==3">New Survey</div><div class="btn main-button" ng-click="restartSurvey()" ng-show="visible==1">Reset Survey</div><div class="btn main-button" ng-click="makeVisible(2); reqSurveys(); changeMessage(1)" ng-show="visible==1">My Surveys</div>
+        </div>
+        
+        <div class="row text-center">
+            <div data-toggle="tooltip" title="New entry" class="col-xs-12"><a ng-click="makeVisible(1); restartSurvey(); changeMessage(0)" ng-show="visible==2||visible==3" class="btn btn-default ctrlButton main-button"><i class="fa fa-file-text fa-2x"></i></a></div>
         </div>
         
         <div ng-hide="visible!=1" class="container-fluid">
             <form role="form">
                 <div class="row text-center">
-                    <div data-toggle="tooltip" title="Add a new option" class="col-xs-4"><a ng-click="addOption()" class="btn btn-default ctrlButton"><i class="fa fa-plus fa-2x"></i></a></div>
-                    <div data-toggle="tooltip" title="Send your poll" class="col-xs-4"><a ng-click="addSurvey(); reqSurveys(); makeVisible(2)" class="btn btn-default ctrlButton"><i class="fa fa-paper-plane fa-2x"></i></a></div>
-                    <div data-toggle="tooltip" title="Delte the last option" class="col-xs-4"><a ng-click="deleteOption()" class="btn btn-default ctrlButton"><i class="fa fa-trash fa-2x"></i></a></div>
+                    <div data-toggle="tooltip" title="Add a new option" class="col-xs-3"><a ng-click="addOption()" class="btn btn-default ctrlButton"><i class="fa fa-plus fa-2x"></i></a></div>
+                    <div data-toggle="tooltip" title="Delete the last option" class="col-xs-2"><a ng-click="deleteOption()" class="btn btn-default ctrlButton"><i class="fa fa-trash fa-2x"></i></a></div>
+                    <div data-toggle="tooltip" title="Reset your entry" class="col-xs-2"><a ng-click="restartSurvey()" class="btn btn-default ctrlButton"><i class="fa fa-repeat fa-2x"></i></a></div>
+                    <div data-toggle="tooltip" title="Save your entry" class="col-xs-2"><a ng-click="addSurvey(); reqSurveys()" class="btn btn-default ctrlButton"><i class="fa fa-floppy-o fa-2x"></i></a></div>
+                    <div data-toggle="tooltip" title="See your entries" class="col-xs-3"><a ng-click="makeVisible(2); reqSurveys(); changeMessage(1)" ng-show="visible==1" class="btn btn-default ctrlButton"><i class="fa fa-folder fa-2x"></i></a></div>
                 </div>
         			<div class="form-group">
-          				<label for="name">Name your poll</label>
-        				<input type="text" class="form-control" ng-model="srvyName">
+          				<label for="name">English Term</label>
+        				<input type="text" class="form-control" ng-model="srvyName" placeholder="Term you want to translate">
         			</div>
+        			<div class="form-group">
+        			    <label for="language">Language</label>
+    			    </div>
+    			    <div class="form-group">
+        			    <select name="language" class="form-control" ng-model="currentLang">
+        			        <option value="">---Choose your target language---</option>
+        			        <option ng-repeat="lang in languages" value="{{lang.abbrev}}">{{lang.name}}</option>
+			            </select>
+        			</div>
+        			{{currentLang}}
+        			
                     <div class="form-group">
-          				<label for="option">Options</label>
+          				<label for="option">Translations</label>
         			</div>
         			<div class="form-group" data-ng-repeat="option in options" >
-        			    <input type="text" class="form-control" ng-model="option.name">
+        			    <input type="text" class="form-control" ng-model="option.name" placeholder="Write your translation here">
         			</div>
             </form>
         </div>
