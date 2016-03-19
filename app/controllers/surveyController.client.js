@@ -85,7 +85,7 @@
         
         $scope.addOption = function(){
             opId++;
-            $scope.options.push({name:'Option '+opId,count:0});
+            $scope.options.push({name:"",count:0});
         };
         
         $scope.deleteOption = function(){
@@ -97,7 +97,15 @@
         };
         
         $scope.addSurvey = function(){
-            if($scope.srvyName==""|$scope.currentLang=="none"){
+            var filteredOptions=[];
+            for(var i=0;i<$scope.options.length;i++){
+                if($scope.options[i].name!=""){
+                    filteredOptions.push($scope.options[i]);
+                }
+            }
+            console.log(filteredOptions);
+            
+            if($scope.srvyName==""|$scope.currentLang=="none"|filteredOptions.length==0){
                 alert("Please fill all the fields");
             }
             else{
@@ -106,7 +114,7 @@
                     username:$scope.username,
                     name:$scope.srvyName,
                     language:$scope.currentLang,
-                    options:$scope.options,
+                    options:filteredOptions,
                     voted:[]
                 };
                 $http.post('/api/surveys',newSurvey);
@@ -137,6 +145,7 @@
         
         $scope.votersList=[];
         $scope.options=[];
+        $scope.newOptions = [];
         $scope.currentSurvey={};
         $scope.chartObject = {};
         $scope.chartObject.type="PieChart";
@@ -191,6 +200,23 @@
             console.log($scope.currentSurvey);
             $http.post('/vote/'+$scope.currentSurvey.username+'/'+$scope.currentSurvey.surveyId,{'survUpdate':$scope.currentSurvey,'optUpdate':$scope.currentSurvey.options[optionVal].name}).
             then($scope.voteScreen());
+        };
+        
+        $scope.askNewOption = function(){
+          $scope.newOptions.push({name:"",count:0});
+        };
+        
+        $scope.addNewOption = function(option, index){
+            if(option.name==""){
+                alert("Write your new translation before adding");
+            }
+            else{
+                $scope.currentSurvey.options.push(option);
+                $scope.newOptions.splice(index,1);
+                console.log($scope.currentSurvey.options);
+                $http.post('/add/'+$scope.currentSurvey.username+'/'+$scope.currentSurvey.surveyId,{'survUpdate':$scope.currentSurvey}).
+                then($scope.voteScreen());
+            }
         };
         
         $scope.voteScreen();

@@ -53,6 +53,15 @@ function surveyHandler(){
             console.log(num);
         });
     };
+    
+    this.addNewOption = function(req,res){
+        console.log(req.user.github.username);
+        
+        Survey.update({'username':req.params.ownerid,'surveyId':req.params.surveyId},{$set:{'options':req.body.survUpdate.options}},function(err,num){
+            if(err){throw err}
+            console.log(num);
+        });
+    };
 }
 
 module.exports=surveyHandler;
