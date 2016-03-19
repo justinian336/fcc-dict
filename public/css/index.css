@@ -33,6 +33,15 @@ body {
 	font-size:3em;
 }
 
+#git-icon{
+	text-shadow: 2px 2px 8px #4183c4;
+	transition: text-shadow 1s;
+}
+
+#git-icon:hover{
+	text-shadow: 6px 6px 16px #005E5E;
+}
+
 .messages-style{
 	color:#f3f3f3;
 	text-shadow: 2px 2px 8px #000000;

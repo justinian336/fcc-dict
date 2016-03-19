@@ -69,6 +69,10 @@ module.exports = function(app,passport){
     app.route('/vote/:ownerid/:surveyId').post(isLoggedIn,function(req,res){
         surveyHandler.vote(req,res);
     });
+    
+    app.route('/add/:ownerid/:surveyId').post(isLoggedIn,function(req,res){
+        surveyHandler.addNewOption(req,res);
+    });
 
     app.route('/signup').get(function(req,res){
         res.sendFile(process.cwd()+'/public/signup.html');

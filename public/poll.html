@@ -2,8 +2,7 @@
     <body>
         
         <div class="jumbotron sbstyle">
-        	<h1 class="logo-style">{{currentSurvey.name}}</h1>
-        	<a class="btn a-button" href="/">My Surveys</a>
+        	<h1 class="logo-style">{{currentSurvey.name}} ({{currentSurvey.language}})</h1>
         </div>
         
         <div class="text-center" ng-hide="voted">
@@ -11,8 +10,11 @@
               <div class="radio" ng-repeat="option in currentSurvey.options">
                 <label><input type="radio" name="optradio" ng-model="selectedOption.value" ng-value="$index">{{option.name}}</label>
               </div>
-              <div class="btn btn-default" ng-click="vote(selectedOption.value)">Vote!</div>
-            </form>
+              <div class="input-group" data-ng-repeat="opt in newOptions track by $index" >
+    		      <input type="text" class="form-control" ng-model="opt.name" placeholder="Write your translation here"><span class="input-group-btn"><button class="btn btn-default" type="button" ng-click="addNewOption(opt)">Add</button></span>
+    		  </div>
+              <a class="btn btn-default ctrlButton" ng-click="askNewOption()">Add a translation</a><a class="btn btn-default ctrlButton" ng-click="vote(selectedOption.value)">Vote!</a>
+             </form>
         </div>
         
         <div ng-show="voted">
