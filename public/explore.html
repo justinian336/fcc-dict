@@ -48,7 +48,7 @@
     	    <div class="row" ng-repeat="poll in polls">
     	        <div class="col-xs-2"></div>
     	        <div class="col-xs-8" >
-    	            <a class="btn btn-default ctrlButton" ng-href="/poll/#/{{poll.username}}/{{poll.surveyId}}">{{poll.name}}</a>
+    	            <a class="btn btn-default ctrlButton" ng-href="/poll/#/{{poll.username}}/{{poll.surveyId}}">({{poll.language}}) {{poll.name}}: {{poll.mostVoted}}</a>
     	        </div>
     	        <div class="col-xs-2"></div>
     	    </div>

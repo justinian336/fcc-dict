@@ -55,6 +55,16 @@
                     $scope.polls = resp.data.filter(function(term){
                         return term.name.search(rgxpVal)!=-1&term.language==$scope.currentLang.abbrev;
                     });
+                    for(var i=0;i<$scope.polls.length;i++){
+                        var optCounts = [];
+                        for(var j=0;j<$scope.polls[i].options.length;j++){
+                            optCounts.push($scope.polls[i].options[j].count);
+                        }
+                        var mostVoted = Math.max(...optCounts);
+                        $scope.polls[i].mostVoted = $scope.polls[i].options.filter(function(val){
+                            return val.count==mostVoted;
+                        })[0].name;
+                    }
                 });
             }
         };
