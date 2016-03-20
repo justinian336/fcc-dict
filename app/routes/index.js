@@ -1,14 +1,14 @@
 'use strict';
-var SurveyHandler = require(process.cwd()+'/app/controllers/surveyController.server.js');
+var EntryHandler = require(process.cwd()+'/app/controllers/entriesController.server.js');
 var bodyParser = require('body-parser');
-var Survey = require('../models/surveys.js');
+var Entry = require('../models/entries.js');
 var Users = require('../models/users.js');
 
 
 module.exports = function(app,passport){
     app.use(bodyParser.json());
     
-    var surveyHandler = new SurveyHandler();
+    var entryHandler = new EntryHandler();
     
     function isLoggedIn(req,res,next){
         if (req.isAuthenticated()){
@@ -27,65 +27,52 @@ module.exports = function(app,passport){
         res.sendFile(process.cwd()+'/public/index.html');
     });
     
-    app.route('/poll').get(isLoggedIn,function(req,res){
-        res.sendFile(process.cwd()+'/public/pollView.html');
+    app.route('/entry').get(isLoggedIn,function(req,res){
+        res.sendFile(process.cwd()+'/public/entryView.html');
     });
     
-    app.route('/poll/404').get(isLoggedIn,function(req,res){
-       res.sendFile(process.cwd()+'/public/404.html'); 
+    app.route('/dictionary').get(isLoggedIn,function(req,res){
+        res.sendFile(process.cwd()+'/public/dictionary.html');
     });
     
-    app.route('/api/surveys').
-    get(isLoggedIn,surveyHandler.getSurveys).
+    app.route('/api/dictionary').
+    get(isLoggedIn,entryHandler.getEntries).
     post(isLoggedIn,function(req,res){
-        surveyHandler.addSurvey(req,res);
+        entryHandler.addEntry(req,res);
     });
     
-    app.route('/api/users').get(isLoggedIn,surveyHandler.getUsers);
+    app.route('/api/users').get(isLoggedIn,entryHandler.getUsers);
     
     app.route('/api/current-user').get(isLoggedIn,function(req,res){
         console.log(req.user);
-        res.json({username:req.user.github.username,numSurveys:req.user.numSurveys});
+        res.json({username:req.user.github.username,numEntries:req.user.numEntries});
     });
 
-    app.route('/api/:id/surveys').get(isLoggedIn,function(req,res){
-        Survey.find({username:req.user.github.username}).exec(function(err,response){
+    app.route('/api/:id/entries').get(isLoggedIn,function(req,res){
+        Entry.find({username:req.user.github.username}).exec(function(err,response){
            if(err){throw err;}
            res.json(response);
         });
     });
     
-    app.route('/api/:id/:surveyId').
+    app.route('/api/:id/:entryId').
     get(isLoggedIn,function(req,res){
-        Survey.find({username:req.params.id,surveyId:req.params.surveyId}).exec(function(err,response){
+        Entry.find({username:req.params.id,entryId:req.params.entryId}).exec(function(err,response){
            if(err){throw err;}
            res.json(response);
         });
     }).
     delete(isLoggedIn,function(req,res){
-        surveyHandler.removeSurvey(req.params.id,req.params.surveyId);
+        entryHandler.removeEntry(req.params.id,req.params.entryId);
     });
     
-    app.route('/vote/:ownerid/:surveyId').post(isLoggedIn,function(req,res){
-        surveyHandler.vote(req,res);
+    app.route('/vote/:ownerid/:entryId').post(isLoggedIn,function(req,res){
+        entryHandler.vote(req,res);
     });
     
-    app.route('/add/:ownerid/:surveyId').post(isLoggedIn,function(req,res){
-        surveyHandler.addNewOption(req,res);
+    app.route('/add/:ownerid/:entryId').post(isLoggedIn,function(req,res){
+        entryHandler.addNewOption(req,res);
     });
-
-    app.route('/signup').get(function(req,res){
-        res.sendFile(process.cwd()+'/public/signup.html');
-    });
-    
-    app.route('/explore').get(function(req,res){
-        res.sendFile(process.cwd()+'/public/explore.html');
-    });
-    
-    app.route('/account').get(isLoggedIn,function(req,res){
-        res.sendFile(process.cwd()+'/public/account.html');
-    });
-    
     
     app.route('/logout').get(function(req,res){
         req.logout();

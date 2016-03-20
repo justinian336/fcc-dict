@@ -22,7 +22,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-mongoose.connect('mongodb://localhost:27017/surbay');
+mongoose.connect('mongodb://localhost:27017/fcc-dictio');
 
 routes(app,passport);
 app.use('/public',express.static(process.cwd()+'/public'));

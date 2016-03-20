@@ -2,12 +2,12 @@
     <body>
         
         <div class="jumbotron sbstyle">
-        	<h1 class="logo-style">{{currentSurvey.name}} ({{currentSurvey.language}})</h1>
+        	<h1 class="logo-style">{{currentEntry.name}} ({{currentEntry.language}})</h1>
         </div>
         
         <div class="text-center" ng-hide="voted">
             <form role="form-control">
-              <div class="radio" ng-repeat="option in currentSurvey.options">
+              <div class="radio" ng-repeat="option in currentEntry.options">
                 <label><input type="radio" name="optradio" ng-model="selectedOption.value" ng-value="$index">{{option.name}}</label>
               </div>
               <div class="input-group" data-ng-repeat="opt in newOptions track by $index" >
