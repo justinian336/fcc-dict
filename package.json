@@ -1,9 +1,9 @@
 {
-  "name": "surbay",
+  "name": "fccdict",
   "version": "1.0.0",
-  "description": "A chat example to showcase how to use `socket.io` with a static `express` server with `async` for control flow.",
+  "description": "An app to assist the translation and internationalization effort of FreeCodeCamp.",
   "main": "server.js",
-  "author": "Mostafa Eweda <mo.eweda@gmail.com>",
+  "author": "justinian336 <jnelsonm64@gmail.com>",
   "dependencies": {
     "angular-route": "^1.4.8",
     "async": "~0.2.8",
@@ -26,7 +26,10 @@
   },
   "devDependencies": {},
   "keywords": [
-    "survey"
+    "dictionary",
+    "translation",
+    "internationalization",
+    "FreeCodeCamp"
   ],
   "license": "ISC"
 }

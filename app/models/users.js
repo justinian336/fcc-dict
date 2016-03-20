@@ -27,7 +27,7 @@ var User = new Schema({
         username:String,
         password:String
     },
-    numSurveys:Number
+    numEntries:Number
 });
 
 User.methods.generateHash=function(password){

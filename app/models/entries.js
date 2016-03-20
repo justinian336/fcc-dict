@@ -3,8 +3,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var Survey = new Schema({
-    surveyId:Number,
+var Entry = new Schema({
+    entryId:Number,
     username:String,
     name:String,
     language:String,
@@ -19,4 +19,4 @@ var Survey = new Schema({
     voted:[]
 });
 
-module.exports = mongoose.model('Survey',Survey);
+module.exports = mongoose.model('Entry',Entry);

@@ -38,7 +38,7 @@ module.exports = function(passport){
                     newUser.github.username=profile.username;
                     newUser.github.displayName=profile.displayName;
                     newUser.github.publicRepos=profile._json.public_repos;
-                    newUser.numSurveys=0;
+                    newUser.numEntries=0;
                     
                     newUser.save(function(err){
                         if(err){
@@ -76,7 +76,7 @@ module.exports = function(passport){
                     newUser.facebook.token=token;
                     newUser.facebook.name=profile.name.givenName+' '+profile.name.familyName;
                     newUser.facebook.email=profile.emails[0].value;
-                    newUser.numSurveys=0;
+                    newUser.numEntries=0;
                     
                     newUser.save(function(err){
                         if(err){
@@ -114,7 +114,7 @@ module.exports = function(passport){
                     newUser.twitter.token=token;
                     newUser.twitter.username=profile.username;
                     newUser.twitter.displayName=profile.displayName;
-                    newUser.numSurveys=0;
+                    newUser.numEntries=0;
                     
                     newUser.save(function(err){
                         if(err){
@@ -147,7 +147,7 @@ module.exports = function(passport){
 
                     newUser.local.username=username;
                     newUser.local.password=newUser.generateHash(password);
-                    newUser.numSurveys=0;
+                    newUser.numEntries=0;
                     
                     newUser.save(function(err){
                         if(err){

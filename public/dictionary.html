@@ -2,14 +2,15 @@
     <head>
     </head>
     
-    <body ng-app="explore" ng-controller="view-polls">
+    <body ng-app="dictionary" ng-controller="view-entries">
         <header>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-            <link href='https://fonts.googleapis.com/css?family=Marcellus+SC' rel='stylesheet' type='text/css'>
-            <link href="/public/css/signup.css" rel="stylesheet" type="text/css"> 
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-            <link href="/public/css/index.css" rel="stylesheet" type="text/css">
+            <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+            <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.min.js"></script>
+            <script type="text/javascript" src="/controllers/dictionary.js"></script>
         </header>
     	<nav class="navbar navbar-default navbar-fixed-top sbstyle">
         	<div class="container-fluid">
@@ -45,23 +46,21 @@
     	</div>
     	
     	<div class="container-fluid">
-    	    <div class="row" ng-repeat="poll in polls">
+    	    <div class="row" ng-repeat="entry in entries">
     	        <div class="col-xs-2"></div>
     	        <div class="col-xs-8" >
-    	            <a class="btn btn-default ctrlButton" ng-href="/poll/#/{{poll.username}}/{{poll.surveyId}}">({{poll.language}}) {{poll.name}}: {{poll.mostVoted}}</a>
+    	            <a class="btn btn-default ctrlButton" ng-href="/entry/#/{{entry.username}}/{{entry.entryId}}">({{entry.language}}) {{entry.name}}: {{entry.mostVoted}}</a>
     	        </div>
     	        <div class="col-xs-2"></div>
     	    </div>
     	    
     	</div>
     	<footer>
-    	    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-            <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
-            <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-resource.min.js"></script>
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.2.4/ui-bootstrap-tpls.min.js"></script>
-            <script type="text/javascript" src="/controllers/explore.js"></script>
+    	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+            <link href='https://fonts.googleapis.com/css?family=Marcellus+SC' rel='stylesheet' type='text/css'>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+            <link href="/public/css/index.css" rel="stylesheet" type="text/css">
     	</footer>
     </body>
 </html>
