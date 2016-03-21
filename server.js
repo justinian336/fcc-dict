@@ -22,7 +22,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-mongoose.connect('mongodb://localhost:27017/fcc-dictio');
+mongoose.connect(process.env.MONGO_URI);
 
 routes(app,passport);
 app.use('/public',express.static(process.cwd()+'/public'));

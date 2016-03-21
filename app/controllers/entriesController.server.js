@@ -35,7 +35,7 @@ function entryHandler(){
     };
     
     this.removeEntry = function(usrnm,entryId){
-        Entry.remove({usernamed:usrnm,entryId:entryId},function(err){
+        Entry.remove({username:usrnm,entryId:entryId},function(err){
             if(err){throw err}
             console.log('Deleted entry number '+entryId);
         });

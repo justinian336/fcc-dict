@@ -15,7 +15,6 @@
         
         var opId;
         $scope.username='';
-        $scope.userNumEntries=1;
         $scope.currentEntry ={};
         $scope.votersList = [];
         $scope.options = [];
@@ -63,10 +62,15 @@
            $scope.message=messages[i]; 
         };
         
-        $http.get('/api/current-user').then(function(resp){
-            $scope.username = resp.data.username;
-            $scope.userNumEntries = resp.data.numEntries;
-        });
+        $scope.getUser = function(){
+            $http.get('/api/current-user').then(function(resp){
+                $scope.username = resp.data.username;
+                $scope.userNumEntries = resp.data.numEntries;
+                console.log(resp.data);
+            });
+        };
+        
+        $scope.getUser();
         
         $scope.visible=1;
         
@@ -136,7 +140,7 @@
         
         $scope.removeEntry = function(entryId){
             $http.delete('/api/'+$scope.username+'/'+entryId);
-            $scope.reqEntries();
+            //$scope.reqEntries();
         };
         
     }]);

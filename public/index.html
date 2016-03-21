@@ -38,7 +38,7 @@
         </div>
         
         <div class="row text-center">
-            <div data-toggle="tooltip" title="New entry" class="col-xs-12"><a ng-click="makeVisible(1); restartEntry(); changeMessage(0)" ng-show="visible==2||visible==3" class="btn btn-default ctrlButton main-button"><i class="fa fa-file-text fa-2x"></i></a></div>
+            <div data-toggle="tooltip" title="New entry" class="col-xs-12"><a ng-click="makeVisible(1); restartEntry(); getUser(); changeMessage(0)" ng-show="visible==2||visible==3" class="btn btn-default ctrlButton main-button"><i class="fa fa-file-text fa-2x"></i></a></div>
         </div>
         
         <div ng-hide="visible!=1" class="container-fluid">
@@ -76,7 +76,7 @@
         <div ng-hide="visible!=2" class="text-center">
             <div class="row" ng-repeat="entry in dictionary">
                 <div class="col-xs-3"></div>
-                    <div class="col-xs-3"><a href="entry/#/{{username}}/{{entry.entryId}}" class="btn btn-default ctrlButton pull-right">{{entry.name}}</a></div><div class="col-xs-3"><div class="btn btn-default pull-left ctrlButton" style="border:none" ng-click="removeEntry(entry.entryId)"><i class="fa fa-trash fa-2x"></i></div></div>
+                    <div class="col-xs-3"><a href="entry/#/{{username}}/{{entry.entryId}}" class="btn btn-default ctrlButton pull-right">{{entry.name}}</a></div><div class="col-xs-3"><div class="btn btn-default pull-left ctrlButton" style="border:none" ng-click="removeEntry(entry.entryId); reqEntries()"><i class="fa fa-trash fa-2x"></i></div></div>
                 <div class="col-xs-3"></div>
             </div>
         </div>
